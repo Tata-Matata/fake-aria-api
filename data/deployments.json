@@ -1,0 +1,35 @@
+[{
+
+    "id": "a7d81f30-80fd-443d-a2cf-f4748cc852a0",
+    "name": "QuickBuild_1762105441724",    
+    "description": "create",    
+    "orgId": "0fa80d4f-7a0d-4d0c-b531-1714ef449325",    
+    "catalogItemId": "39814b5b-e3bc-32c1-944a-aa81351ac8f7",
+    "catalogItemVersion": "1",    
+    "blueprintId": "f5d52de5-899d-4d50-a74a-8150fb50ee83",
+    "blueprintVersion": "1",    
+    "iconId": "1495b8d9-9428-30d6-9626-10ff9281645e",
+    "createdAt": "2025-11-02T17:44:01.814285Z",    
+    "createdBy": "configadmin",    
+    "ownedBy": "01_adm_build",    
+    "ownerType": "USER",    
+    "lastUpdatedAt": "2025-11-02T18:13:26.520267Z",    
+    "lastUpdatedBy": "catalog-Jkbfw1YYRH1rk68q",    
+    "leaseExpireAt": "2025-11-03T17:50:00Z",    
+    "leaseGracePeriodDays": 0,    
+    "inputs": {    
+        "CPU": 4,    
+        "RAM": 16,    
+        "vmname": "not set",    
+        "Version": "33B1__",    
+        "project": "c0927929-ff03-46f8-843b-066232a9363a",
+        "description": "create",    
+        "deploymentName": "QuickBuild_1762105441724",    
+        "_catalogItemName": "2004",    
+        "bulkRequestCount": 1
+    },    
+    "projectId": "c0927929-ff03-46f8-843b-066232a9363a",
+    "status": "CREATE_SUCCESSFUL"    
+    }
+
+]
