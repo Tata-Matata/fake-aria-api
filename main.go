@@ -13,7 +13,7 @@ func main() {
 	fmt.Println("Writing logs to %v", logger.Dir)
 	defer logger.Close()
 
-	deployApi, _ := deploy.NewDeployAPI()
+	deployApi, _ := deploy.NewDeployAPI(deploy.DEPLOY_JSON)
 
 	app := App{DeployApi: *deployApi}
 	app.Initialize()
