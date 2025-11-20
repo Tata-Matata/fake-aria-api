@@ -6,12 +6,14 @@ import (
 	"net/http"
 
 	"github.com/Tata-Matata/fake-aria-api/deploy"
+	"github.com/Tata-Matata/fake-aria-api/storage"
 	"github.com/gorilla/mux"
 )
 
 type App struct {
-	Router    *mux.Router
-	DeployApi deploy.DeployAPI
+	Router     *mux.Router
+	DeployApi  deploy.DeployAPI
+	StorageAPI *storage.StorageAPI
 }
 
 func checkErr(e error) {
@@ -64,6 +66,30 @@ func (app *App) getDeployment(respWriter http.ResponseWriter, req *http.Request)
 	sendJSON(respWriter, deployment, http.StatusOK)
 }
 
+func (app *App) getDataStores(respWriter http.ResponseWriter, req *http.Request) {
+	deploys, err := app.StorageAPI.Randomize()
+	if err != nil {
+		sendError(respWriter, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	sendJSON(respWriter, deploys, http.StatusOK)
+}
+
+func (app *App) getDataStore(respWriter http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+	id := vars["id"]
+
+	deployment, err := app.StorageAPI.GetByID(id)
+
+	if err != nil {
+		sendError(respWriter, http.StatusBadRequest, "invalid data store ID")
+		return
+	}
+
+	sendJSON(respWriter, deployment, http.StatusOK)
+}
+
 func (app *App) Run(address string) {
 	log.Fatal(http.ListenAndServe(address, app.Router))
 }
@@ -71,5 +97,7 @@ func (app *App) Run(address string) {
 func (app *App) HandleRoutes() {
 	app.Router.HandleFunc("/deployments", app.getDeployments).Methods("GET")
 	app.Router.HandleFunc("/deployments/{id}", app.getDeployment).Methods("GET")
+	app.Router.HandleFunc("/datastores", app.getDataStores).Methods("GET")
+	app.Router.HandleFunc("/datastores/{id}", app.getDataStore).Methods("GET")
 	//app.Router.HandleFunc("/product", app.createProduct).Methods("POST")
 }

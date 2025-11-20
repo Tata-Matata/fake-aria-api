@@ -88,8 +88,9 @@ func (api *DeployAPI) GetByID(id string) (interface{}, error) {
 			return item, nil
 		}
 	}
-	log.Printf("deployment with id %v not found", id)
-	return nil, fmt.Errorf("deployment with id %v not found", id)
+	message := fmt.Sprintf("deployment with id %v not found", id)
+	log.Print(message)
+	return nil, fmt.Errorf("%s", message)
 }
 
 func NewDeployAPI(jsonPath string) (*DeployAPI, error) {

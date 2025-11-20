@@ -57,3 +57,25 @@ func TestDeepCopyWithNestedObjects(t *testing.T) {
 	// Ensure nested value in the original map hasnt changed
 	assert.Equal(t, "nestedValue1", input["key2"].(map[string]interface{})["nestedKey1"])
 }
+
+func TestBytesToTiB(t *testing.T) {
+	// 1 TiB in bytes
+	const oneTiB = uint64(1 << 40)
+
+	// Test cases
+	tests := []struct {
+		bytes    uint64
+		expected float64
+	}{
+		{bytes: 0, expected: 0},
+		{bytes: oneTiB, expected: 1},
+		{bytes: oneTiB * 2, expected: 2},
+		{bytes: oneTiB / 2, expected: 0.5},
+		{bytes: oneTiB + (oneTiB / 2), expected: 1.5},
+	}
+
+	for _, test := range tests {
+		result := BytesToTiB(test.bytes)
+		assert.InDelta(t, test.expected, result, 0.0001, "BytesToTiB(%d) should be approximately %f", test.bytes, test.expected)
+	}
+}
