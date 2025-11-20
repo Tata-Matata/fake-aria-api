@@ -41,7 +41,7 @@ func sendError(response http.ResponseWriter, status int, err string) {
 }
 
 func (app *App) getDeployments(respWriter http.ResponseWriter, req *http.Request) {
-	deploys, err := app.DeployApi.GetRandom()
+	deploys, err := app.DeployApi.Randomize()
 	if err != nil {
 		sendError(respWriter, http.StatusInternalServerError, err.Error())
 		return
