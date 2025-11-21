@@ -3,7 +3,6 @@ package deploy
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/Tata-Matata/fake-aria-api/util"
@@ -25,7 +24,7 @@ func (api *DeployAPI) Randomize() ([]interface{}, error) {
 	for i := 0; i < total; i++ {
 		deploy, err := api.createRandomDeploy(i)
 		if err != nil {
-			log.Printf("Failed to create deploy")
+			util.LogError("Failed to create deploy")
 		} else {
 			deploys = append(deploys, deploy)
 		}
@@ -89,7 +88,7 @@ func (api *DeployAPI) GetByID(id string) (interface{}, error) {
 		}
 	}
 	message := fmt.Sprintf("deployment with id %v not found", id)
-	log.Print(message)
+	util.LogError(message)
 	return nil, fmt.Errorf("%s", message)
 }
 
@@ -101,13 +100,13 @@ func NewDeployAPI(jsonPath string) (*DeployAPI, error) {
 
 	data, err := os.ReadFile(jsonPath)
 	if err != nil {
-		log.Printf("failed to read JSON file: %v", err)
+		util.LogError(fmt.Sprintf("failed to read JSON file: %v", err))
 		return emptyApi, err
 	}
 
 	var deployments []interface{}
 	if err := json.Unmarshal(data, &deployments); err != nil {
-		log.Printf("failed to parse JSON: %v", err)
+		util.LogError(fmt.Sprintf("failed to parse JSON: %v", err))
 		return emptyApi, err
 	}
 

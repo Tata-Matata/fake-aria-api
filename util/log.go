@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"log"
@@ -19,7 +19,7 @@ func (appLog *Logger) Initialize() error {
 			log.Fatalf("Unable to find user home directory: %v", err)
 		}
 
-		appLog.Dir = filepath.Join(home, "logs")
+		appLog.Dir = filepath.Join(home, LOG_FOLDER_NAME)
 
 	}
 
@@ -44,4 +44,16 @@ func (appLog *Logger) Close() {
 	if appLog.file != nil {
 		appLog.file.Close()
 	}
+}
+
+func LogError(msg string) {
+	log.Println("[ERROR]", msg)
+}
+
+func LogInfo(msg string) {
+	log.Println("[INFO]", msg)
+}
+
+func LogWarn(msg string) {
+	log.Println("[WARN]", msg)
 }
