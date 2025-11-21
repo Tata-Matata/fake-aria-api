@@ -22,7 +22,7 @@ func (p DeployEventPusher) Interval() time.Duration {
 }
 
 func (p DeployEventPusher) Endpoint() string {
-	return "/event"
+	return PUSH_ENDPOINT
 }
 
 func (p DeployEventPusher) GenerateEvent() (any, error) {
